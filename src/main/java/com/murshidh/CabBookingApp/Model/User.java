@@ -1,5 +1,6 @@
 package com.murshidh.CabBookingApp.Model;
 
+import com.murshidh.CabBookingApp.Enum.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

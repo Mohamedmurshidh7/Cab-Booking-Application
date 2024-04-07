@@ -1,12 +1,16 @@
 package com.murshidh.CabBookingApp.Service;
 
-import com.murshidh.CabBookingApp.Transformers.DriverTransformer;
 import com.murshidh.CabBookingApp.Dto.request.DriverRequest;
 import com.murshidh.CabBookingApp.Dto.response.DriverResponse;
+import com.murshidh.CabBookingApp.Exception.DriverNotAvailable;
 import com.murshidh.CabBookingApp.Model.Driver;
 import com.murshidh.CabBookingApp.Repository.DriverRepository;
+import com.murshidh.CabBookingApp.Transformers.DriverResponseTransformer;
+import com.murshidh.CabBookingApp.Transformers.DriverTransformer;
+import com.murshidh.CabBookingApp.Util.DistanceCalculator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -18,78 +22,65 @@ public class DriverService {
     @Autowired
     DriverRepository driverRepository;
 
+    @Value("${MaxDistance:5}")
+    private int maxDistance;
+
     public void addDriver(DriverRequest driverRequest)
     {
         Driver driver = DriverTransformer.convertDtoToEntity(driverRequest);
         driverRepository.save(driver);
     }
 
-    public boolean chooseRide(String name)
+    public boolean chooseRide(String name) throws DriverNotAvailable
     {
         Optional<Driver> driver= driverRepository.findByName(name);
         if(driver.isEmpty())
         {
-            log.debug("No Driver with the given name");
-            return false;
+            throw new DriverNotAvailable("No driver with the given name");
         }
         Driver currentDriver = driver.get();
         if(currentDriver.isBooked())
         {
-            log.debug("Driver {} is not available", currentDriver.getDriverDetails().getName());
-            return false;
+            throw new DriverNotAvailable(currentDriver.getDriverDetails().getName() + " is already in another ride");
+
         }
         currentDriver.setBooked(true);
         return true;
     }
 
+    /*
+    Returns List of drivers nearest to the location
+     */
     public List<DriverResponse> findDrivers(int[] location)
     {
-        HashMap<String, Driver> allDrivers = driverRepository.findAll();
+        Map<String, Driver> allDrivers = driverRepository.findAll();
         List<DriverResponse> availableDrivers = new ArrayList<>();
-        for(Map.Entry<String,Driver> data: allDrivers.entrySet())
+        for(Driver driver: allDrivers.values())
         {
-            String name = data.getKey();
-            Driver driver = data.getValue();
-            if( ((Math.abs(location[0]-driver.getLocation()[0])<5)
-            && (Math.abs(location[1]-driver.getLocation()[1])<5)) && !driver.isBooked())
+            int distanceBetween = DistanceCalculator.calculateDistance(location, driver.getLocation());
+            if( distanceBetween<maxDistance && !driver.isBooked())
             {
-                DriverResponse driverResponse = DriverResponse.builder()
-                        .name(driver.getDriverDetails().getName())
-                        .age(driver.getDriverDetails().getAge())
-                        .carModel(driver.getVehicleDetails().getCarModel())
-                        .location(driver.getLocation())
-                        .registrationNumber(driver.getVehicleDetails().getRegistrationNumber())
-                        .build();
+                DriverResponse driverResponse = DriverResponseTransformer.convertEntityToDto(driver);
                 availableDrivers.add(driverResponse);
             }
         }
         //Logic to sort based on the nearest driver
         Collections.sort(availableDrivers,
                 (a,b)->{
-                int distA = Math.abs(a.getLocation()[0]- location[0])+ Math.abs(a.getLocation()[1]- location[1]) ;
-                int distB = Math.abs(b.getLocation()[0]- location[0])+ Math.abs(b.getLocation()[1]- location[1]);
+                int distA = DistanceCalculator.calculateDistance(a.getLocation(),location);
+                int distB = DistanceCalculator.calculateDistance(b.getLocation(),location);
                 return distA-distB;
                 });
         return availableDrivers;
     }
     public List<DriverResponse> findAllDrivers()
     {
-        HashMap<String, Driver> allDriversMap = driverRepository.findAll();
+        Map<String, Driver> allDriversMap = driverRepository.findAll();
         List<DriverResponse> allDrivers = new ArrayList<>();
-        for(Map.Entry<String,Driver> data: allDriversMap.entrySet())
+        for(Driver driver: allDriversMap.values())
         {
-            String name = data.getKey();
-            Driver driver = data.getValue();
-
-                DriverResponse driverResponse = DriverResponse.builder()
-                        .name(driver.getDriverDetails().getName())
-                        .age(driver.getDriverDetails().getAge())
-                        .carModel(driver.getVehicleDetails().getCarModel())
-                        .location(driver.getLocation())
-                        .registrationNumber(driver.getVehicleDetails().getRegistrationNumber())
-                        .build();
-                allDrivers.add(driverResponse);
-
+            DriverResponse driverResponse = DriverResponseTransformer.convertEntityToDto(driver);
+            allDrivers.add(driverResponse);
         }
 
         return allDrivers;

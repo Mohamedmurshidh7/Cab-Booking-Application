@@ -1,4 +1,4 @@
-package com.murshidh.CabBookingApp.Model;
+package com.murshidh.CabBookingApp.Enum;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

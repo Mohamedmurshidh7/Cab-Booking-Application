@@ -1,27 +1,28 @@
 package com.murshidh.CabBookingApp.Repository;
 
+import com.murshidh.CabBookingApp.Enum.Gender;
 import com.murshidh.CabBookingApp.Model.Driver;
 import com.murshidh.CabBookingApp.Model.DriverDetails;
-import com.murshidh.CabBookingApp.Model.Gender;
 import com.murshidh.CabBookingApp.Model.VehicleDetails;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 @Slf4j
 public class DriverRepository {
-    HashMap<String,Driver> driverMap = new HashMap<>();
+    ConcurrentHashMap<String,Driver> driverMap = new ConcurrentHashMap<>();
 
     public Optional<Driver> findByName(String name)
     {
         return Optional.ofNullable(driverMap.get(name));
     }
 
-    public HashMap<String,Driver> findAll()
+    public Map<String,Driver> findAll()
     {
         return driverMap;
     }
@@ -50,10 +51,10 @@ public class DriverRepository {
     @PostConstruct
     public void initData() {
         // Load initial data into the repository
-        driverMap.put("Clark Kent", Driver.builder()
+        driverMap.put("ClarkKent", Driver.builder()
                 .driverDetails(DriverDetails
                         .builder()
-                        .name("Clark Kent")
+                        .name("ClarkKent")
                         .age(36)
                         .gender(Gender.M)
                         .build())
@@ -65,10 +66,10 @@ public class DriverRepository {
                 .isBooked(false)
                 .location(new int[]{30,40})
                 .build());
-        driverMap.put("Bruce Wayne", Driver.builder()
+        driverMap.put("BruceWayne", Driver.builder()
                 .driverDetails(DriverDetails
                         .builder()
-                        .name("Bruce Wayne")
+                        .name("BruceWayne")
                         .age(32)
                         .gender(Gender.M)
                         .build())
@@ -80,10 +81,10 @@ public class DriverRepository {
                 .isBooked(false)
                 .location(new int[]{20,10})
                 .build());
-        driverMap.put("Diana Prince", Driver.builder()
+        driverMap.put("DianaPrince", Driver.builder()
                 .driverDetails(DriverDetails
                         .builder()
-                        .name("Diana Prince")
+                        .name("DianaPrince")
                         .age(27)
                         .gender(Gender.F)
                         .build())
@@ -95,10 +96,10 @@ public class DriverRepository {
                 .isBooked(false)
                 .location(new int[]{0,0})
                 .build());
-        driverMap.put("Tony Stark", Driver.builder()
+        driverMap.put("TonyStark", Driver.builder()
                 .driverDetails(DriverDetails
                         .builder()
-                        .name("Tony Stark")
+                        .name("TonyStark")
                         .age(30)
                         .gender(Gender.M)
                         .build())
@@ -110,10 +111,10 @@ public class DriverRepository {
                 .isBooked(false)
                 .location(new int[]{90,40})
                 .build());
-        driverMap.put("Peter Parker", Driver.builder()
+        driverMap.put("PeterParker", Driver.builder()
                 .driverDetails(DriverDetails
                         .builder()
-                        .name("Peter Parker")
+                        .name("PeterParker")
                         .age(20)
                         .gender(Gender.M)
                         .build())

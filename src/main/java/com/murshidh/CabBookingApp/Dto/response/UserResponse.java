@@ -1,10 +1,12 @@
-package com.murshidh.CabBookingApp.Dto.request;
+package com.murshidh.CabBookingApp.Dto.response;
 
 import com.murshidh.CabBookingApp.Enum.Gender;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class UserRequest {
+@Builder
+public class UserResponse {
     String name;
     Gender gender;
     int age;

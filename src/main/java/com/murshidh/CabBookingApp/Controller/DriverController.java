@@ -2,6 +2,7 @@ package com.murshidh.CabBookingApp.Controller;
 
 import com.murshidh.CabBookingApp.Dto.request.DriverRequest;
 import com.murshidh.CabBookingApp.Dto.response.DriverResponse;
+import com.murshidh.CabBookingApp.Exception.DriverNotAvailable;
 import com.murshidh.CabBookingApp.Service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ public class DriverController {
         return driverService.findAllDrivers();
     }
 
-    @PostMapping("/chooseRide/{driverName}")
-    public boolean chooseRide(@PathVariable String driverName)
+    @PutMapping("/chooseRide/{driverName}")
+    public boolean chooseRide(@PathVariable String driverName) throws DriverNotAvailable
     {
         return driverService.chooseRide(driverName);
     }

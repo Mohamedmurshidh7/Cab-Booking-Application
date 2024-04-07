@@ -1,7 +1,7 @@
 package com.murshidh.CabBookingApp.Transformers;
 
-import com.murshidh.CabBookingApp.dto.request.UserRequest;
-import com.murshidh.CabBookingApp.model.User;
+import com.murshidh.CabBookingApp.Dto.request.UserRequest;
+import com.murshidh.CabBookingApp.Model.User;
 
 public class UserTransformer {
     public static User convertDtoToEntity(UserRequest userRequest)

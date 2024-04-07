@@ -1,6 +1,6 @@
-package com.murshidh.CabBookingApp.dto.request;
+package com.murshidh.CabBookingApp.Dto.request;
 
-import com.murshidh.CabBookingApp.model.Gender;
+import com.murshidh.CabBookingApp.Model.Gender;
 import lombok.Data;
 
 @Data

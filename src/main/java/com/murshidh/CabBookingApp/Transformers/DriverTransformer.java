@@ -1,9 +1,9 @@
 package com.murshidh.CabBookingApp.Transformers;
 
-import com.murshidh.CabBookingApp.dto.request.DriverRequest;
-import com.murshidh.CabBookingApp.model.Driver;
-import com.murshidh.CabBookingApp.model.DriverDetails;
-import com.murshidh.CabBookingApp.model.VehicleDetails;
+import com.murshidh.CabBookingApp.Dto.request.DriverRequest;
+import com.murshidh.CabBookingApp.Model.Driver;
+import com.murshidh.CabBookingApp.Model.DriverDetails;
+import com.murshidh.CabBookingApp.Model.VehicleDetails;
 
 public class DriverTransformer {
     public static Driver convertDtoToEntity(DriverRequest driverRequest)

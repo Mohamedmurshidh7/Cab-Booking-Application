@@ -1,4 +1,4 @@
-package com.murshidh.CabBookingApp.model;
+package com.murshidh.CabBookingApp.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VehicleDetails {
-    String carModel;
-    String registrationNumber;
+public class User {
+    String name;
+    Gender gender;
+    int age;
 }

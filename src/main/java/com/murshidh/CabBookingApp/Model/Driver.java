@@ -1,4 +1,4 @@
-package com.murshidh.CabBookingApp.model;
+package com.murshidh.CabBookingApp.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

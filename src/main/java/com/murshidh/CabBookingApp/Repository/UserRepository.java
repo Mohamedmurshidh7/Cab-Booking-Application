@@ -1,12 +1,14 @@
-package com.murshidh.CabBookingApp.repository;
+package com.murshidh.CabBookingApp.Repository;
 
-import com.murshidh.CabBookingApp.model.User;
+import com.murshidh.CabBookingApp.Model.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Optional;
 
 @Slf4j
+@Repository
 public class UserRepository {
     HashMap<String, User> userMap = new HashMap<>();
 

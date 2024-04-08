@@ -96,6 +96,21 @@ public class DriverRepository {
                 .isBooked(false)
                 .location(new int[]{0,0})
                 .build());
+        driverMap.put("BarryAllen", Driver.builder()
+                .driverDetails(DriverDetails
+                        .builder()
+                        .name("BarryAllen")
+                        .age(27)
+                        .gender(Gender.M)
+                        .build())
+                .vehicleDetails(VehicleDetails
+                        .builder()
+                        .carModel("Fronx")
+                        .registrationNumber("AP-09987888")
+                        .build())
+                .isBooked(false)
+                .location(new int[]{3,1})
+                .build());
         driverMap.put("TonyStark", Driver.builder()
                 .driverDetails(DriverDetails
                         .builder()

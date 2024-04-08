@@ -22,9 +22,9 @@ This is a Cab-Booking-Application using Spring Boot.
   
 These Basic requirements are implemented.
 
-# Good practices:
+# Key Features and Design Decisions:
 
-- Followed the Spring Boot naming conventions
+- Followed the Spring Boot naming conventions.
 - Modularized the code for easier readability. 
 - Segregated each layers separately such as Model, Controller and Service.
 - Usage of Data Transfer Objects(Dto) for Abstraction, 
@@ -32,13 +32,17 @@ These Basic requirements are implemented.
 - With interest of assignment scope, I used ConcurrentHashMap for storing data and used the names as key for faster retrieval.
 - Used ConcurrentHashMap for concurrency handling.
 - used **Gender** as enum, since it is common for both **User** and **Driver** class.  
-- Externalized maxDistance variable, that is used to find the nearest rides
+- Externalized maxDistance variable, that is used to find the nearest rides.
 - When user gets the nearest rides, it wil be sorted based on the distance from the nearest to farthest ride.
 - Created a custom Exception when a driver is not available.
-- Distance Calculator inside the Util package is used to calculate the distance between two points
+- Distance Calculator inside the Util package is used to calculate the distance between two points.
+- Added Unit tests for Driver Service, Similarly we can add UTs for others also.
+- Loaded initial data in the HashMap for easier testing.
+- Added a DemoDriver component, to run some expected use cases.
 
 
 Feel free to reach out for any suggestions and improvements.
+
 **Note: import Cab_Booking_Application.postman_collection in Postman for easier testing.** 
 
 
